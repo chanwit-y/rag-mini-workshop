@@ -38,7 +38,9 @@ console.log(docs);
 ### 4. Chunk the Document 🔪
 
 To make the document easier for the model to process, we'll split it into smaller, overlapping chunks using the `RecursiveCharacterTextSplitter`.
-[[RecursiveCharacterTextSplitter]] [[Overlap]]
+For more details on how the `RecursiveCharacterTextSplitter` works, refer to the [RecursiveCharacterTextSplitter documentation](./RecursiveCharacterTextSplitter.md).
+For more details on how chunk overlapping works, refer to the [Overlap documentation](./Overlap.md).
+
 
 - **`chunkSize`**: The maximum size of each chunk.
     
@@ -116,7 +118,7 @@ const prompt = ChatPromptTemplate.fromTemplate(
 ### 9. Create the Document Chain 🔗
 
 The `createStuffDocumentsChain` takes our documents and "stuffs" them directly into the context of the prompt.
-[[createStuffDocumentsChain]]
+For more details on how `createStuffDocumentsChain` works, refer to the [createStuffDocumentsChain documentation](createStuffDocumentsChain.md).
 
 ```ts
 // index.ts
