@@ -6,7 +6,7 @@ Here's a step-by-step guide to creating a simple Retrieval-Augmented Generation 
 
 First, let's set up a new Bun project.
 
-```
+```sh
 mkdir bun-rag-app
 cd bun-rag-app
 
@@ -17,7 +17,7 @@ bun init # Select the "Blank" template
 
 Next, we'll install LangChain, which provides the core building blocks for our RAG pipeline.
 
-```
+```sh
 bun add langchain
 ```
 
@@ -25,7 +25,7 @@ bun add langchain
 
 Create a file named `data.txt` and add some text to it. Then, use the `TextLoader` to load this document into your application.
 
-```
+```ts
 // index.ts
 import { TextLoader } from "langchain/document_loaders/fs/text";
 
@@ -45,7 +45,7 @@ To make the document easier for the model to process, we'll split it into smalle
 - **`chunkOverlap`**: The number of characters that overlap between adjacent chunks to maintain context.
     
 
-```
+```ts
 // index.ts
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
@@ -62,7 +62,7 @@ console.log(chunks);
 
 We need a model to convert our text chunks into numerical vectors (embeddings). We'll use OpenAI's embedding model for this.
 
-```
+```ts
 // index.ts
 import { OpenAIEmbeddings } from "@langchain/openai";
 
@@ -73,7 +73,7 @@ const embeddings = new OpenAIEmbeddings();
 
 Now, we'll embed our chunks and store them in a `MemoryVectorStore`. This allows for efficient in-memory similarity searches.
 
-```
+```ts
 // index.ts
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
 
@@ -84,7 +84,7 @@ const vectorStore = await MemoryVectorStore.fromDocuments(chunks, embeddings);
 
 Select the Large Language Model (LLM) that will generate the final answer. Here, we're using `gpt-4o-mini`.
 
-```
+```ts
 // index.ts
 import { ChatOpenAI } from "@langchain/openai";
 
@@ -98,7 +98,7 @@ const llm = new ChatOpenAI({
 
 This template guides the LLM, instructing it to answer the user's question based _only_ on the retrieved document chunks (the context).
 
-```
+```ts
 // index.ts
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 
@@ -118,7 +118,7 @@ const prompt = ChatPromptTemplate.fromTemplate(
 The `createStuffDocumentsChain` takes our documents and "stuffs" them directly into the context of the prompt.
 [[createStuffDocumentsChain]]
 
-```
+```ts
 // index.ts
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 
@@ -134,7 +134,7 @@ Finally, we'll tie everything together.
 2. **Retrieval Chain**: The `createRetrievalChain` orchestrates the entire flow: it retrieves relevant documents and then passes them to the document chain to generate an answer.
     
 
-```
+```ts
 // index.ts
 import { createRetrievalChain } from "langchain/chains/retrieval";
 
@@ -150,7 +150,7 @@ const retrievalChain = await createRetrievalChain({
 
 Now you can invoke the chain with a question and get a context-aware answer.
 
-```
+```ts
 // index.ts
 const question = "What is the main topic of the document?";
 
