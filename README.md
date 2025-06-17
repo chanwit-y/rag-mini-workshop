@@ -96,6 +96,24 @@ const llm = new ChatOpenAI({
 });
 ```
 
+```ts
+const endpoint = process.env["AZURE_OPENAI_ENDPOINT"] ||"";
+const apiKey = process.env["AZURE_OPENAI_API_KEY"] || "";
+const apiVersion = "2025-01-01-preview";
+const deployment = "o4-mini"; // This must match your deployment name
+
+const llm = new AzureChatOpenAI({
+  model: "gpt-4o",
+  temperature: 1,
+  maxTokens: undefined,
+  maxRetries: 2,
+  azureOpenAIApiKey: apiKey, // In Node.js defaults to process.env.AZURE_OPENAI_API_KEY
+  azureOpenAIApiInstanceName: endpoint, // In Node.js defaults to process.env.AZURE_OPENAI_API_INSTANCE_NAME
+  azureOpenAIApiDeploymentName: deployment, // In Node.js defaults to process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME
+  azureOpenAIApiVersion: apiVersion, // In Node.js defaults to process.env.AZURE_OPENAI_API_VERSION
+});
+```
+
 ### 8. Create a Prompt Template 📝
 
 This template guides the LLM, instructing it to answer the user's question based _only_ on the retrieved document chunks (the context).
