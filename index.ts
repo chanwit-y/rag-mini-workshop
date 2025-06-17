@@ -49,6 +49,8 @@ async function main() {
   });
 
   console.log(result);
+  console.log("Test");
+  
 }
 
 await main();
