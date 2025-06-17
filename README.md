@@ -95,8 +95,10 @@ const llm = new ChatOpenAI({
 	temperature: 0.5,
 });
 ```
-
+Azure OpentAI
 ```ts
+import { AzureChatOpenAI } from "@langchain/openai";
+
 const endpoint = process.env["AZURE_OPENAI_ENDPOINT"] ||"";
 const apiKey = process.env["AZURE_OPENAI_API_KEY"] || "";
 const apiVersion = "2025-01-01-preview";
